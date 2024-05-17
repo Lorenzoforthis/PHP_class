@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"
+    <title>ajax-非同步傳輸</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        function getData(){
+           var userId = $("#userId").val();
+           $.ajax({
+                url:"ajax.php",
+                type:"post",
+                data:{
+                    //左邊userId是後端接收資料的名稱
+                    //右邊userId是前端接傳給後端的值
+                    userId:userId,
+                },
+                //msg變數名稱，可自取
+                success: function(message){
+                    //將回傳資料顯示在id為msg的網頁上
+                    $("#msg").html(message);
+                }
+            });       
+           
+        }
+
+
+    </script>
+</head>
+<body>
+<form method="post" action="ajax.php">
+    <div>
+        <input type="text" id="userId" name="userId" onblur="getData">
+    <br>
+    </div>
+    <div id="msg"></div>
+    <div>
+        <input type="submit" value="確定">
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>新增會員</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+            function checkNumber(){
+                var userId =$("#userId").val();                
+                if(userId !=""){
+                    $.ajax({
+                        url:"checkMember.php",
+                        type:"post",
+                        data:{
+                            userId:userId
+                        },
+                        success:function(message){
+                            if(message == "exist"){
+                                $("#msg").html("<font color='red'>帳號已被使用</font>");
+                                $("#userId").focus();
+                            }else{
+                                $("#msg").html("");
+                            }
+                        }
+
+                    });
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <form method="post" action="addMember.php">
+            <div>
+                帳號:<input type="text" id="userId" name="userId" onblur="checkNumber()">
+
+            </div>
+            <div id="msg"></div>
+            <div>
+                密碼:<input type="password" name="pwd">
+            </div>
+            <div>
+                手機:<input type="text" name="mobile">
+            </div>
+            <div>
+                <input type="submit" value="確定">
+            </div>
+        </form>
+    </body>
+</html>

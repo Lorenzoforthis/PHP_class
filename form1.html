@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>表單一</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.js">
+        </script>     
+        <script>
+            function showMsg(){
+                    let userName = document.getElementById ("userName").value;
+                    if(userName !="")
+                    {
+                        document.getElementById("msg").innerHTML = ("歡迎["+ userName + "]");  
+                    }else{
+                        document.getElementById("msg").innerHTML = ("");
+                    }
+                        
+            }
+                    
+            function checkPhone(){
+                //取得手機欄位的值
+                //引入jquery之前 var mobile = document.getElementByid("mobile").value;
+                    var mobile =$("#mobile").val();
+                    //如果沒有輸入資料
+                    if(mobile ==""){
+                        $("#msg2").html("請輸入手機號碼");
+                        //將焦點移回mobile輸入框
+                        $("#mobile").focus();                        
+                    }else{
+                        //有輸入資料
+                        //如果輸入的長度小於5(length:長度)
+                        if(mobile.length<5){
+                            $("#msg2").html("<font color='#b342b3'>手機號碼錯誤</font>");
+                            $("#mobile").focus();                      
+                        }else{
+                            // isNan非數字
+                            if(isNaN(mobile)){
+                                $("#msg2").html("手機號碼只能輸入數字");
+                                $("#mobile").focus();
+                            }else{
+                                //將殘留的錯誤訊息清空
+                                $("#msg2").html("");
+                            }                        
+                        }
+
+                    }    
+            }       
+            
+            function doshow(id){
+                if (id==1){
+                    $("#pro1").show();
+                    $("#pro2").hide();
+                }else{
+                    $("#pro1").show();
+                    $("pro2").hide();
+                }
+            }
+        </script>        
+
+    </head>
+    <body>
+                <!-- onkeydown:按下
+             onkeyup:放開
+             onkeypress:按下後放開
+             method:post,get
+             get:資料會出現在網址內，能傳送的資料量較小
+             post:資料"不會"出現在網址列，能傳送的資料量較大;超連結也是get的一種
+             找變數可以把要找的選起來，其他的跟著反白，EX: 滑鼠選msg 其他msg也會反白
+        -->
+        <form method="post" action="form1.php">
+            名字<input type = "text" id="userName" name="names" onkeyup="showMsg()" size="40" style="height:50pt" >   <!-- id 是給前端使用，name是給後端使用  
+                                                                                                                      required為強制輸入才能送-->  
+            <div id="msg"></div>
+            <br/> <!-- <br> or <br> or <br />:換行 
+           網頁中無論有多少個空格，效果都是只有一個空格 &nbsp; =>空格 若要多個空格就要使用&nbsp-->
+            <!-- onblur；當焦點離開時，也就是離開這個輸入框時-->           
+            手機<input type = "text" id="mobile" name="mobile" onblur="checkPhone()" size="40" style="height:30pt" required>   <!-- id 是給前端使用，name是給後端使用  -->
+            <div id="msg2"></div>  
+            
+            生日:<input type="date" id="birthday" name="birthday">
+            <br>
+            
+            性別:<input type="radio" id="gender1" name="gender" value="M">男 &nbsp;
+                <input type="radio" id="gender2" name="gender" value="F">女 &nbsp;
+            <br> 
+            領域:<input type="radio" id="f1" name="fields" onclick="doshow('1')">前端
+                <input type="radio" id="f2" name="fields" onclick="doshow('2')">後端
+            <br>    
+            專長:<div id="pro1" style="display: none;">
+                    <input type="checkbox" name="pro[]" value="vue">VUE;
+                    <input type="checkbox" name="pro[]" value="angular">ANGULAR;
+                    <input type="checkbox" name="pro[]" value="react" >REACT;
+                    </div>
+                <div id="pro2" style="display: none;">
+                    <input type="checkbox" name="pro[]" value="java" >JAVA;
+                    <input type="checkbox" name="pro[]" value=".net">.NET;
+                    <input type="checkbox" name="pro[]" value="PHP">PHP;
+                </div>
+                
+            <br>
+            戶籍地:<select name="city">
+                        <option value="">請選擇</option>
+                        <option value="台中市">台中市</option>
+                        <option value="台北市">台北市</option>
+                        <option value="高雄市">高雄市</option>    
+                </select> 
+            <br>
+            內容::<textarea name="content" clos="60"  row="5" ></textarea> 
+            <div>
+                <input type="submit" value="confirmed">
+            </div>
+        </form>
+    </body>
+</html>
